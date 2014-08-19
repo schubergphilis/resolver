@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# NOTE: This file is generated from a chef template! Do not edit or change this file 
+# but change the following:
+# * template file: <%= @template_file %>
+# * recipe: <%= @recipe_name %>
+# * cookbook: <%= @cookbook_name %>
+# It redefines the dhclient function to generate resolv.conf into performing no action 
+# after a DHCP request, since we already manage resolv.conf from the resolver cookbook. 
+#
+make_resolv_conf() {
+  # We don't want /etc/resolv.conf changed
+  # So this is an empty function
+  return 0
+}
