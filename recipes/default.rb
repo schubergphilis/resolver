@@ -32,4 +32,21 @@ else
     # This syntax makes the resolver sub-keys available directly
     variables node['resolver']
   end
+  if platform_family?('rhel')
+    template_file = '/etc/dhcp/dhclient-enter-hooks'
+  elsif platform_family?('debian')
+    template_file = '/etc/dhcp3/dhclient-enter-hooks.d/resolvconf'
+  end
+
+  template template_file do
+    source 'dhclient-enter-hooks.erb'
+    owner 'root'
+    group 'root'
+    mode 0755
+    variables(
+      :cookbook_name => cookbook_name,
+      :recipe_name   => recipe_name,
+      :template_file => source.to_s,
+    )
+  end  
 end
